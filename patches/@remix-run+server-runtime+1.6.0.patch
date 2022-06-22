@@ -1,5 +1,5 @@
 diff --git a/node_modules/@remix-run/server-runtime/server.js b/node_modules/@remix-run/server-runtime/server.js
-index 0f8b188..c2a0730 100644
+index 0f8b188..76d22ab 100644
 --- a/node_modules/@remix-run/server-runtime/server.js
 +++ b/node_modules/@remix-run/server-runtime/server.js
 @@ -23,6 +23,11 @@ var responses = require('./responses.js');
@@ -42,7 +42,7 @@ index 0f8b188..c2a0730 100644
    } catch (error) {
      if (serverMode !== mode.ServerMode.Test) {
        console.error(error);
-+      handleError(request, error)
++      handleError(request, error, loadContext)
      }
  
      if (serverMode === mode.ServerMode.Development) {
@@ -50,7 +50,7 @@ index 0f8b188..c2a0730 100644
  
        if (serverMode !== mode.ServerMode.Test) {
          console.error(`There was an error running the action for route ${actionMatch.route.id}`);
-+        build.entry.module.handleError(request, error)
++        build.entry.module.handleError(request, error, loadContext)
 +
        }
      }
@@ -59,7 +59,7 @@ index 0f8b188..c2a0730 100644
  
        if (serverMode !== mode.ServerMode.Test) {
          console.error(`There was an error running the data loader for route ${match.route.id}`);
-+        build.entry.module.handleError(request, error)
++        build.entry.module.handleError(request, error, loadContext)
        }
  
        break;
@@ -67,7 +67,7 @@ index 0f8b188..c2a0730 100644
      } catch (error) {
        if (serverMode !== mode.ServerMode.Test) {
          console.error(error);
-+        build.entry.module.handleError(request, error)
++        build.entry.module.handleError(request, error, loadContext)
        }
  
        let message = "Unexpected Server Error";
@@ -84,7 +84,7 @@ index 0f8b188..c2a0730 100644
      if (serverMode !== mode.ServerMode.Test) {
        console.error(error);
 -    }
-+      handleError(request, error)
++      handleError(request, error, loadContext)
 +  }
  
      let message = "Unexpected Server Error";
