@@ -39,6 +39,15 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 
   throw new Error('Oops')
 }
+
+// server.js
+const getLoadContext = () => ({
+  _requestContext: {},
+  getRequestContext: () => this._requestContext,
+  setRequestContext: ({ user, context, metaData }) => {
+    this._requestContext = { user, context, metaData }
+  },
+})
 ```
 
 ## 🛠 Installation
