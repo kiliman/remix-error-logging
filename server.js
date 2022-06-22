@@ -25,6 +25,13 @@ app.use(express.static('public', { maxAge: '1h' }))
 
 app.use(morgan('tiny'))
 
+const getLoadContext = () => ({
+  _requestContext: {},
+  getRequestContext: () => this._requestContext,
+  setRequestContext: ({ user, context, metaData }) => {
+    this._requestContext = { user, context, metaData }
+  },
+})
 app.all(
   '*',
   process.env.NODE_ENV === 'development'
@@ -34,11 +41,13 @@ app.all(
         return createRequestHandler({
           build: require(BUILD_DIR),
           mode: process.env.NODE_ENV,
+          getLoadContext,
         })(req, res, next)
       }
     : createRequestHandler({
         build: require(BUILD_DIR),
         mode: process.env.NODE_ENV,
+        getLoadContext,
       }),
 )
 const port = process.env.PORT || 3000

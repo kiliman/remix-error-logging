@@ -25,9 +25,10 @@ export default function handleRequest(
   })
 }
 
-export function handleError(request: Request, error: Error) {
+export function handleError(request: Request, error: Error, context: any) {
   console.log('notify bugsnag')
   Bugsnag.notify(error, event => {
+    event.setUser(context.getRequestContext().user)
     event.addMetadata('request', {
       url: request.url,
       method: request.method,
