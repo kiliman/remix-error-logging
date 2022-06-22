@@ -17,8 +17,11 @@ Bugsnag.start({
 
 // add handleError export to notify Bugsnag
 // this adds the request data as metadata to the error report
-export function handleError(request: Request, error: Error) {
+// context is the object from `getLoadContext`
+// you can use this to add per request context like current user
+export function handleError(request: Request, error: Error, context: any) {
   console.log('notify bugsnag')
+  Bugsnag.setUser(context.getRequestContext().user)
   Bugsnag.notify(error, event => {
     event.addMetadata('request', {
       url: request.url,
@@ -26,6 +29,15 @@ export function handleError(request: Request, error: Error) {
       headers: Object.fromEntries(request.headers.entries()),
     })
   })
+}
+
+// routes/bug.tsx
+export const loader: LoaderFunction = async ({ request, context }) => {
+  const user = await getUser(request)
+  // set the context used by bugsnag for this request
+  context.setRequestContext({ user })
+
+  throw new Error('Oops')
 }
 ```
 
