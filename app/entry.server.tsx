@@ -6,7 +6,11 @@
 
 import { PassThrough } from 'node:stream'
 
-import type { AppLoadContext, EntryContext } from '@remix-run/node'
+import type {
+  AppLoadContext,
+  DataFunctionArgs,
+  EntryContext,
+} from '@remix-run/node'
 import { Response } from '@remix-run/node'
 import { RemixServer } from '@remix-run/react'
 import isbot from 'isbot'
@@ -120,11 +124,7 @@ function handleBrowserRequest(
   })
 }
 
-export function handleError(
-  request: Request,
-  error: Error,
-  context: AppLoadContext,
-) {
+export function handleError(error: Error, args: DataFunctionArgs) {
   console.error('💣 ----------')
   console.error('ERROR', error)
   console.error('💣 ----------')
