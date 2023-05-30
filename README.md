@@ -16,10 +16,9 @@ Bugsnag.start({
 })
 
 // add handleError export to notify Bugsnag
-// this adds the request data as metadata to the error report
-// context is the object from `getLoadContext`
-// you can use this to add per request context like current user
-export function handleError(request: Request, error: Error, context: any) {
+// args includes the same object as loader and actions
+// { request, params, context }
+export function handleError(error: unknown, { request, context }: DataFunctionArgs) {
   console.log('notify bugsnag')
   Bugsnag.setUser(context.getRequestContext().user)
   Bugsnag.notify(error, event => {
@@ -32,7 +31,7 @@ export function handleError(request: Request, error: Error, context: any) {
 }
 
 // routes/bug.tsx
-export const loader: LoaderFunction = async ({ request, context }) => {
+export async function loader async ({ request, context }: LoaderArgs) => {
   const user = await getUser(request)
   // set the context used by bugsnag for this request
   context.setRequestContext({ user })
