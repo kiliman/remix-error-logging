@@ -4,36 +4,27 @@
   "scripts": {
     "postinstall": "patch-package",
     "build": "remix build",
-    "dev": "remix build && run-p dev:*",
-    "start": "cross-env NODE_ENV=production node ./server.js",
-    "dev:node": "cross-env NODE_ENV=development dotenv nodemon ./server.js --watch ./server.js",
-    "dev:remix": "remix watch"
+    "dev": "remix dev",
+    "start": "remix-serve build",
+    "typecheck": "tsc"
   },
   "dependencies": {
-    "@bugsnag/js": "^7.17.0",
-    "@bugsnag/plugin-express": "^7.17.0",
-    "@remix-run/express": "^1.6.0",
-    "@remix-run/node": "^1.6.0",
-    "@remix-run/react": "^1.6.0",
-    "compression": "^1.7.4",
-    "cross-env": "^7.0.3",
-    "express": "^4.18.1",
-    "morgan": "^1.10.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "@remix-run/css-bundle": "^1.16.1",
+    "@remix-run/node": "^1.16.1",
+    "@remix-run/react": "^1.16.1",
+    "@remix-run/serve": "^1.16.1",
+    "isbot": "^3.6.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.6.0",
-    "@remix-run/eslint-config": "^1.6.0",
-    "@types/react": "^17.0.45",
-    "@types/react-dom": "^17.0.17",
-    "dotenv-cli": "^5.1.0",
-    "eslint": "^8.15.0",
-    "nodemon": "^2.0.16",
-    "npm-run-all": "^4.1.5",
-    "patch-package": "^6.4.7",
-    "prettier": "^2.7.1",
-    "typescript": "^4.6.4"
+    "@remix-run/dev": "^1.16.1",
+    "@remix-run/eslint-config": "^1.16.1",
+    "@types/react": "^18.0.35",
+    "@types/react-dom": "^18.0.11",
+    "eslint": "^8.38.0",
+    "patch-package": "^7.0.0",
+    "typescript": "^5.0.4"
   },
   "engines": {
     "node": ">=14"

@@ -1,0 +1,506 @@
+diff --git a/node_modules/@remix-run/server-runtime/.DS_Store b/node_modules/@remix-run/server-runtime/.DS_Store
+new file mode 100644
+index 0000000..6938111
+Binary files /dev/null and b/node_modules/@remix-run/server-runtime/.DS_Store differ
+diff --git a/node_modules/@remix-run/server-runtime/dist/cookies.js b/node_modules/@remix-run/server-runtime/dist/cookies.js
+index 5d3bacb..563676a 100644
+--- a/node_modules/@remix-run/server-runtime/dist/cookies.js
++++ b/node_modules/@remix-run/server-runtime/dist/cookies.js
+@@ -15,17 +15,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
+ var cookie = require('cookie');
+ var warnings = require('./warnings.js');
+ 
+-/**
+- * A HTTP cookie.
+- *
+- * A Cookie is a logical container for metadata about a HTTP cookie; its name
+- * and options. But it doesn't contain a value. Instead, it has `parse()` and
+- * `serialize()` methods that allow a single instance to be reused for
+- * parsing/encoding multiple different values.
+- *
+- * @see https://remix.run/utils/cookies#cookie-api
+- */
+-
+ /**
+  * Creates a logical container for managing a browser cookie from the server.
+  *
+diff --git a/node_modules/@remix-run/server-runtime/dist/data.js b/node_modules/@remix-run/server-runtime/dist/data.js
+index a4446e6..90fa7a5 100644
+--- a/node_modules/@remix-run/server-runtime/dist/data.js
++++ b/node_modules/@remix-run/server-runtime/dist/data.js
+@@ -14,17 +14,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
+ 
+ var responses = require('./responses.js');
+ 
+-/**
+- * An object of unknown type for route loaders and actions provided by the
+- * server's `getLoadContext()` function.
+- */
+-
+-/**
+- * Data for a route that was returned from a `loader()`.
+- *
+- * Note: This moves to unknown in ReactRouter and eventually likely in Remix
+- */
+-
+ async function callRouteActionRR({
+   loadContext,
+   action,
+diff --git a/node_modules/@remix-run/server-runtime/dist/errors.js b/node_modules/@remix-run/server-runtime/dist/errors.js
+index 1059714..8015172 100644
+--- a/node_modules/@remix-run/server-runtime/dist/errors.js
++++ b/node_modules/@remix-run/server-runtime/dist/errors.js
+@@ -61,6 +61,7 @@ var mode = require('./mode.js');
+  * @deprecated in favor of the `ErrorResponse` class in React Router.  Please
+  * enable the `future.v2_errorBoundary` flag to ease your migration to Remix v2.
+  */
++
+ function sanitizeError(error, serverMode) {
+   if (error instanceof Error && serverMode !== mode.ServerMode.Development) {
+     let sanitized = new Error("Unexpected Server Error");
+@@ -79,6 +80,7 @@ function sanitizeErrors(errors, serverMode) {
+ 
+ // must be type alias due to inference issues on interfaces
+ // https://github.com/microsoft/TypeScript/issues/15300
++
+ function serializeError(error, serverMode) {
+   let sanitized = sanitizeError(error, serverMode);
+   return {
+diff --git a/node_modules/@remix-run/server-runtime/dist/esm/cookies.js b/node_modules/@remix-run/server-runtime/dist/esm/cookies.js
+index 93e50c7..ae14b9b 100644
+--- a/node_modules/@remix-run/server-runtime/dist/esm/cookies.js
++++ b/node_modules/@remix-run/server-runtime/dist/esm/cookies.js
+@@ -11,17 +11,6 @@
+ import { parse, serialize } from 'cookie';
+ import { warnOnce } from './warnings.js';
+ 
+-/**
+- * A HTTP cookie.
+- *
+- * A Cookie is a logical container for metadata about a HTTP cookie; its name
+- * and options. But it doesn't contain a value. Instead, it has `parse()` and
+- * `serialize()` methods that allow a single instance to be reused for
+- * parsing/encoding multiple different values.
+- *
+- * @see https://remix.run/utils/cookies#cookie-api
+- */
+-
+ /**
+  * Creates a logical container for managing a browser cookie from the server.
+  *
+diff --git a/node_modules/@remix-run/server-runtime/dist/esm/data.js b/node_modules/@remix-run/server-runtime/dist/esm/data.js
+index cd1c615..48b98ab 100644
+--- a/node_modules/@remix-run/server-runtime/dist/esm/data.js
++++ b/node_modules/@remix-run/server-runtime/dist/esm/data.js
+@@ -10,17 +10,6 @@
+  */
+ import { isResponse, json, isDeferredData, isRedirectStatusCode, redirect } from './responses.js';
+ 
+-/**
+- * An object of unknown type for route loaders and actions provided by the
+- * server's `getLoadContext()` function.
+- */
+-
+-/**
+- * Data for a route that was returned from a `loader()`.
+- *
+- * Note: This moves to unknown in ReactRouter and eventually likely in Remix
+- */
+-
+ async function callRouteActionRR({
+   loadContext,
+   action,
+diff --git a/node_modules/@remix-run/server-runtime/dist/esm/errors.js b/node_modules/@remix-run/server-runtime/dist/esm/errors.js
+index 7d80756..a8abc21 100644
+--- a/node_modules/@remix-run/server-runtime/dist/esm/errors.js
++++ b/node_modules/@remix-run/server-runtime/dist/esm/errors.js
+@@ -57,6 +57,7 @@ import { ServerMode } from './mode.js';
+  * @deprecated in favor of the `ErrorResponse` class in React Router.  Please
+  * enable the `future.v2_errorBoundary` flag to ease your migration to Remix v2.
+  */
++
+ function sanitizeError(error, serverMode) {
+   if (error instanceof Error && serverMode !== ServerMode.Development) {
+     let sanitized = new Error("Unexpected Server Error");
+@@ -75,6 +76,7 @@ function sanitizeErrors(errors, serverMode) {
+ 
+ // must be type alias due to inference issues on interfaces
+ // https://github.com/microsoft/TypeScript/issues/15300
++
+ function serializeError(error, serverMode) {
+   let sanitized = sanitizeError(error, serverMode);
+   return {
+diff --git a/node_modules/@remix-run/server-runtime/dist/esm/mode.js b/node_modules/@remix-run/server-runtime/dist/esm/mode.js
+index 2bea1e0..d82a6c4 100644
+--- a/node_modules/@remix-run/server-runtime/dist/esm/mode.js
++++ b/node_modules/@remix-run/server-runtime/dist/esm/mode.js
+@@ -11,12 +11,12 @@
+ /**
+  * The mode to use when running the server.
+  */
+-let ServerMode = /*#__PURE__*/function (ServerMode) {
++let ServerMode;
++(function (ServerMode) {
+   ServerMode["Development"] = "development";
+   ServerMode["Production"] = "production";
+   ServerMode["Test"] = "test";
+-  return ServerMode;
+-}({});
++})(ServerMode || (ServerMode = {}));
+ function isServerMode(value) {
+   return value === ServerMode.Development || value === ServerMode.Production || value === ServerMode.Test;
+ }
+diff --git a/node_modules/@remix-run/server-runtime/dist/esm/responses.js b/node_modules/@remix-run/server-runtime/dist/esm/responses.js
+index 661733d..ae9a20e 100644
+--- a/node_modules/@remix-run/server-runtime/dist/esm/responses.js
++++ b/node_modules/@remix-run/server-runtime/dist/esm/responses.js
+@@ -11,8 +11,6 @@
+ import { json as json$1, defer as defer$1, redirect as redirect$1 } from '@remix-run/router';
+ import { serializeError } from './errors.js';
+ 
+-// must be a type since this is a subtype of response
+-// interfaces must conform to the types they extend
+ /**
+  * This is a shortcut for creating `application/json` responses. Converts `data`
+  * to JSON and sets the `Content-Type` header.
+diff --git a/node_modules/@remix-run/server-runtime/dist/esm/routes.js b/node_modules/@remix-run/server-runtime/dist/esm/routes.js
+index e32ef4e..c902acb 100644
+--- a/node_modules/@remix-run/server-runtime/dist/esm/routes.js
++++ b/node_modules/@remix-run/server-runtime/dist/esm/routes.js
+@@ -10,10 +10,6 @@
+  */
+ import { callRouteLoaderRR, callRouteActionRR } from './data.js';
+ 
+-// NOTE: make sure to change the Route in remix-react if you change this
+-
+-// NOTE: make sure to change the EntryRoute in remix-react if you change this
+-
+ function groupRoutesByParentId(manifest) {
+   let routes = {};
+   Object.values(manifest).forEach(route => {
+diff --git a/node_modules/@remix-run/server-runtime/dist/esm/server.js b/node_modules/@remix-run/server-runtime/dist/esm/server.js
+index 934aac5..1092b39 100644
+--- a/node_modules/@remix-run/server-runtime/dist/esm/server.js
++++ b/node_modules/@remix-run/server-runtime/dist/esm/server.js
+@@ -24,13 +24,16 @@ const createRequestHandler = (build, mode) => {
+   let dataRoutes = createStaticHandlerDataRoutes(build.routes, build.future);
+   let serverMode = isServerMode(mode) ? mode : ServerMode.Production;
+   let staticHandler = createStaticHandler(dataRoutes);
++  if (build.entry.module.handleError === undefined) {
++    build.entry.module.handleError = () => {};
++  }
+   return async function requestHandler(request, loadContext = {}) {
+     let url = new URL(request.url);
+     let matches = matchServerRoutes(routes, url.pathname);
+     let response;
+     if (url.searchParams.has("_data")) {
+       let routeId = url.searchParams.get("_data");
+-      response = await handleDataRequestRR(serverMode, staticHandler, routeId, request, loadContext);
++      response = await handleDataRequestRR(serverMode, staticHandler, routeId, request, loadContext, build.entry.module.handleError);
+       if (build.entry.module.handleDataRequest) {
+         let match = matches.find(match => match.route.id == routeId);
+         response = await build.entry.module.handleDataRequest(response, {
+@@ -40,9 +43,9 @@ const createRequestHandler = (build, mode) => {
+         });
+       }
+     } else if (matches && matches[matches.length - 1].route.module.default == null) {
+-      response = await handleResourceRequestRR(serverMode, staticHandler, matches.slice(-1)[0].route.id, request, loadContext);
++      response = await handleResourceRequestRR(serverMode, staticHandler, matches.slice(-1)[0].route.id, request, loadContext, build.entry.module.handleError);
+     } else {
+-      response = await handleDocumentRequestRR(serverMode, build, staticHandler, request, loadContext);
++      response = await handleDocumentRequestRR(serverMode, build, staticHandler, request, loadContext, build.entry.module.handleError);
+     }
+     if (request.method === "HEAD") {
+       return new Response(null, {
+@@ -54,7 +57,7 @@ const createRequestHandler = (build, mode) => {
+     return response;
+   };
+ };
+-async function handleDataRequestRR(serverMode, staticHandler, routeId, request, loadContext) {
++async function handleDataRequestRR(serverMode, staticHandler, routeId, request, loadContext, handleError) {
+   try {
+     let response = await staticHandler.queryRoute(request, {
+       routeId,
+@@ -93,7 +96,7 @@ async function handleDataRequestRR(serverMode, staticHandler, routeId, request,
+     }
+     let status = isRouteErrorResponse(error) ? error.status : 500;
+     let errorInstance = isRouteErrorResponse(error) && error.error ? error.error : error instanceof Error ? error : new Error("Unexpected Server Error");
+-    logServerErrorIfNotAborted(errorInstance, request, serverMode);
++    logServerErrorIfNotAborted(errorInstance, request, serverMode, loadContext, handleError);
+     return json(serializeError(errorInstance, serverMode), {
+       status,
+       headers: {
+@@ -136,14 +139,14 @@ function differentiateCatchVersusErrorBoundaries(build, context) {
+   }
+   context.errors = errors;
+ }
+-async function handleDocumentRequestRR(serverMode, build, staticHandler, request, loadContext) {
++async function handleDocumentRequestRR(serverMode, build, staticHandler, request, loadContext, handleError) {
+   let context;
+   try {
+     context = await staticHandler.query(request, {
+       requestContext: loadContext
+     });
+   } catch (error) {
+-    logServerErrorIfNotAborted(error, request, serverMode);
++    logServerErrorIfNotAborted(error, request, serverMode, loadContext, handleError);
+     return new Response(null, {
+       status: 500
+     });
+@@ -210,12 +213,12 @@ async function handleDocumentRequestRR(serverMode, build, staticHandler, request
+     try {
+       return await handleDocumentRequestFunction(request, context.statusCode, headers, entryContext, loadContext);
+     } catch (error) {
+-      logServerErrorIfNotAborted(error, request, serverMode);
++      logServerErrorIfNotAborted(error, request, serverMode, loadContext, handleError);
+       return returnLastResortErrorResponse(error, serverMode);
+     }
+   }
+ }
+-async function handleResourceRequestRR(serverMode, staticHandler, routeId, request, loadContext) {
++async function handleResourceRequestRR(serverMode, staticHandler, routeId, request, loadContext, handleError) {
+   try {
+     // Note we keep the routeId here to align with the Remix handling of
+     // resource routes which doesn't take ?index into account and just takes
+@@ -234,13 +237,16 @@ async function handleResourceRequestRR(serverMode, staticHandler, routeId, reque
+       error.headers.set("X-Remix-Catch", "yes");
+       return error;
+     }
+-    logServerErrorIfNotAborted(error, request, serverMode);
++    logServerErrorIfNotAborted(error, request, serverMode, loadContext, handleError);
+     return returnLastResortErrorResponse(error, serverMode);
+   }
+ }
+-function logServerErrorIfNotAborted(error, request, serverMode) {
++function logServerErrorIfNotAborted(error, request, serverMode, loadContext, handleError) {
+   if (serverMode !== ServerMode.Test && !request.signal.aborted) {
+     console.error(error);
++    if (error instanceof Error) {
++      handleError(request, error, loadContext);
++    }
+   }
+ }
+ function returnLastResortErrorResponse(error, serverMode) {
+diff --git a/node_modules/@remix-run/server-runtime/dist/esm/sessions.js b/node_modules/@remix-run/server-runtime/dist/esm/sessions.js
+index 0968452..2b31ef1 100644
+--- a/node_modules/@remix-run/server-runtime/dist/esm/sessions.js
++++ b/node_modules/@remix-run/server-runtime/dist/esm/sessions.js
+@@ -15,12 +15,6 @@ import { warnOnce } from './warnings.js';
+  * An object of name/value pairs to be used in the session.
+  */
+ 
+-/**
+- * Session persists data across HTTP requests.
+- *
+- * @see https://remix.run/utils/sessions#session-api
+- */
+-
+ function flash(name) {
+   return `__flash_${name}__`;
+ }
+@@ -82,16 +76,6 @@ const isSession = object => {
+  * Then, later it generates the `Set-Cookie` header to be used in the response.
+  */
+ 
+-/**
+- * SessionIdStorageStrategy is designed to allow anyone to easily build their
+- * own SessionStorage using `createSessionStorage(strategy)`.
+- *
+- * This strategy describes a common scenario where the session id is stored in
+- * a cookie but the actual session data is stored elsewhere, usually in a
+- * database or on disk. A set of create, read, update, and delete operations
+- * are provided for managing the session data.
+- */
+-
+ /**
+  * Creates a SessionStorage object using a SessionIdStorageStrategy.
+  *
+diff --git a/node_modules/@remix-run/server-runtime/dist/mode.js b/node_modules/@remix-run/server-runtime/dist/mode.js
+index 15c67c6..3fa80fd 100644
+--- a/node_modules/@remix-run/server-runtime/dist/mode.js
++++ b/node_modules/@remix-run/server-runtime/dist/mode.js
+@@ -15,15 +15,14 @@ Object.defineProperty(exports, '__esModule', { value: true });
+ /**
+  * The mode to use when running the server.
+  */
+-let ServerMode = /*#__PURE__*/function (ServerMode) {
++exports.ServerMode = void 0;
++(function (ServerMode) {
+   ServerMode["Development"] = "development";
+   ServerMode["Production"] = "production";
+   ServerMode["Test"] = "test";
+-  return ServerMode;
+-}({});
++})(exports.ServerMode || (exports.ServerMode = {}));
+ function isServerMode(value) {
+-  return value === ServerMode.Development || value === ServerMode.Production || value === ServerMode.Test;
++  return value === exports.ServerMode.Development || value === exports.ServerMode.Production || value === exports.ServerMode.Test;
+ }
+ 
+-exports.ServerMode = ServerMode;
+ exports.isServerMode = isServerMode;
+diff --git a/node_modules/@remix-run/server-runtime/dist/responses.js b/node_modules/@remix-run/server-runtime/dist/responses.js
+index ee5d137..cb16d3e 100644
+--- a/node_modules/@remix-run/server-runtime/dist/responses.js
++++ b/node_modules/@remix-run/server-runtime/dist/responses.js
+@@ -15,8 +15,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
+ var router = require('@remix-run/router');
+ var errors = require('./errors.js');
+ 
+-// must be a type since this is a subtype of response
+-// interfaces must conform to the types they extend
+ /**
+  * This is a shortcut for creating `application/json` responses. Converts `data`
+  * to JSON and sets the `Content-Type` header.
+diff --git a/node_modules/@remix-run/server-runtime/dist/routes.js b/node_modules/@remix-run/server-runtime/dist/routes.js
+index 8c97233..188134f 100644
+--- a/node_modules/@remix-run/server-runtime/dist/routes.js
++++ b/node_modules/@remix-run/server-runtime/dist/routes.js
+@@ -14,10 +14,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
+ 
+ var data = require('./data.js');
+ 
+-// NOTE: make sure to change the Route in remix-react if you change this
+-
+-// NOTE: make sure to change the EntryRoute in remix-react if you change this
+-
+ function groupRoutesByParentId(manifest) {
+   let routes = {};
+   Object.values(manifest).forEach(route => {
+diff --git a/node_modules/@remix-run/server-runtime/dist/server.js b/node_modules/@remix-run/server-runtime/dist/server.js
+index 2219e38..5912ac1 100644
+--- a/node_modules/@remix-run/server-runtime/dist/server.js
++++ b/node_modules/@remix-run/server-runtime/dist/server.js
+@@ -28,13 +28,16 @@ const createRequestHandler = (build, mode$1) => {
+   let dataRoutes = routes.createStaticHandlerDataRoutes(build.routes, build.future);
+   let serverMode = mode.isServerMode(mode$1) ? mode$1 : mode.ServerMode.Production;
+   let staticHandler = router.createStaticHandler(dataRoutes);
++  if (build.entry.module.handleError === undefined) {
++    build.entry.module.handleError = () => {};
++  }
+   return async function requestHandler(request, loadContext = {}) {
+     let url = new URL(request.url);
+     let matches = routeMatching.matchServerRoutes(routes$1, url.pathname);
+     let response;
+     if (url.searchParams.has("_data")) {
+       let routeId = url.searchParams.get("_data");
+-      response = await handleDataRequestRR(serverMode, staticHandler, routeId, request, loadContext);
++      response = await handleDataRequestRR(serverMode, staticHandler, routeId, request, loadContext, build.entry.module.handleError);
+       if (build.entry.module.handleDataRequest) {
+         let match = matches.find(match => match.route.id == routeId);
+         response = await build.entry.module.handleDataRequest(response, {
+@@ -44,9 +47,9 @@ const createRequestHandler = (build, mode$1) => {
+         });
+       }
+     } else if (matches && matches[matches.length - 1].route.module.default == null) {
+-      response = await handleResourceRequestRR(serverMode, staticHandler, matches.slice(-1)[0].route.id, request, loadContext);
++      response = await handleResourceRequestRR(serverMode, staticHandler, matches.slice(-1)[0].route.id, request, loadContext, build.entry.module.handleError);
+     } else {
+-      response = await handleDocumentRequestRR(serverMode, build, staticHandler, request, loadContext);
++      response = await handleDocumentRequestRR(serverMode, build, staticHandler, request, loadContext, build.entry.module.handleError);
+     }
+     if (request.method === "HEAD") {
+       return new Response(null, {
+@@ -58,7 +61,7 @@ const createRequestHandler = (build, mode$1) => {
+     return response;
+   };
+ };
+-async function handleDataRequestRR(serverMode, staticHandler, routeId, request, loadContext) {
++async function handleDataRequestRR(serverMode, staticHandler, routeId, request, loadContext, handleError) {
+   try {
+     let response = await staticHandler.queryRoute(request, {
+       routeId,
+@@ -97,7 +100,7 @@ async function handleDataRequestRR(serverMode, staticHandler, routeId, request,
+     }
+     let status = router.isRouteErrorResponse(error) ? error.status : 500;
+     let errorInstance = router.isRouteErrorResponse(error) && error.error ? error.error : error instanceof Error ? error : new Error("Unexpected Server Error");
+-    logServerErrorIfNotAborted(errorInstance, request, serverMode);
++    logServerErrorIfNotAborted(errorInstance, request, serverMode, loadContext, handleError);
+     return responses.json(errors.serializeError(errorInstance, serverMode), {
+       status,
+       headers: {
+@@ -140,14 +143,14 @@ function differentiateCatchVersusErrorBoundaries(build, context) {
+   }
+   context.errors = errors;
+ }
+-async function handleDocumentRequestRR(serverMode, build, staticHandler, request, loadContext) {
++async function handleDocumentRequestRR(serverMode, build, staticHandler, request, loadContext, handleError) {
+   let context;
+   try {
+     context = await staticHandler.query(request, {
+       requestContext: loadContext
+     });
+   } catch (error) {
+-    logServerErrorIfNotAborted(error, request, serverMode);
++    logServerErrorIfNotAborted(error, request, serverMode, loadContext, handleError);
+     return new Response(null, {
+       status: 500
+     });
+@@ -214,12 +217,12 @@ async function handleDocumentRequestRR(serverMode, build, staticHandler, request
+     try {
+       return await handleDocumentRequestFunction(request, context.statusCode, headers$1, entryContext, loadContext);
+     } catch (error) {
+-      logServerErrorIfNotAborted(error, request, serverMode);
++      logServerErrorIfNotAborted(error, request, serverMode, loadContext, handleError);
+       return returnLastResortErrorResponse(error, serverMode);
+     }
+   }
+ }
+-async function handleResourceRequestRR(serverMode, staticHandler, routeId, request, loadContext) {
++async function handleResourceRequestRR(serverMode, staticHandler, routeId, request, loadContext, handleError) {
+   try {
+     // Note we keep the routeId here to align with the Remix handling of
+     // resource routes which doesn't take ?index into account and just takes
+@@ -238,13 +241,16 @@ async function handleResourceRequestRR(serverMode, staticHandler, routeId, reque
+       error.headers.set("X-Remix-Catch", "yes");
+       return error;
+     }
+-    logServerErrorIfNotAborted(error, request, serverMode);
++    logServerErrorIfNotAborted(error, request, serverMode, loadContext, handleError);
+     return returnLastResortErrorResponse(error, serverMode);
+   }
+ }
+-function logServerErrorIfNotAborted(error, request, serverMode) {
++function logServerErrorIfNotAborted(error, request, serverMode, loadContext, handleError) {
+   if (serverMode !== mode.ServerMode.Test && !request.signal.aborted) {
+     console.error(error);
++    if (error instanceof Error) {
++      handleError(request, error, loadContext);
++    }
+   }
+ }
+ function returnLastResortErrorResponse(error, serverMode) {
+diff --git a/node_modules/@remix-run/server-runtime/dist/sessions.js b/node_modules/@remix-run/server-runtime/dist/sessions.js
+index e56b3cc..2440449 100644
+--- a/node_modules/@remix-run/server-runtime/dist/sessions.js
++++ b/node_modules/@remix-run/server-runtime/dist/sessions.js
+@@ -19,12 +19,6 @@ var warnings = require('./warnings.js');
+  * An object of name/value pairs to be used in the session.
+  */
+ 
+-/**
+- * Session persists data across HTTP requests.
+- *
+- * @see https://remix.run/utils/sessions#session-api
+- */
+-
+ function flash(name) {
+   return `__flash_${name}__`;
+ }
+@@ -86,16 +80,6 @@ const isSession = object => {
+  * Then, later it generates the `Set-Cookie` header to be used in the response.
+  */
+ 
+-/**
+- * SessionIdStorageStrategy is designed to allow anyone to easily build their
+- * own SessionStorage using `createSessionStorage(strategy)`.
+- *
+- * This strategy describes a common scenario where the session id is stored in
+- * a cookie but the actual session data is stored elsewhere, usually in a
+- * database or on disk. A set of create, read, update, and delete operations
+- * are provided for managing the session data.
+- */
+-
+ /**
+  * Creates a SessionStorage object using a SessionIdStorageStrategy.
+  *

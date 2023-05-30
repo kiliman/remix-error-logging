@@ -1,13 +1,6 @@
-import type { LoaderFunction } from '@remix-run/node'
+import type { LoaderArgs } from '@remix-run/node'
 
-async function getUser(request: Request) {
-  return { name: 'Kiliman' }
-}
-
-export const loader: LoaderFunction = async ({ request, context }) => {
-  const user = await getUser(request)
-  context.setRequestContext({ user })
-
+export async function loader({ request, context }: LoaderArgs) {
   throw new Error('Oops')
 }
 
