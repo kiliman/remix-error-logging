@@ -1,5 +1,9 @@
 # Remix Error Logging
 
+> Remix v1.17.0 has introduced the new `handleError()` export from _entry.server.tsx_. You no longer need this patch.
+
+https://github.com/remix-run/remix/releases/tag/remix%401.17.0
+
 This example adds a patch to enable server side logging to your
 favorite logging service. This one uses [Bugsnag](https://www.bugsnag.com/), but any of them
 should work.
